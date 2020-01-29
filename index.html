@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>OneX/ - Digital Transformation | Platform Development</title>
+  <meta name="title" content="OneX/ - Digital Transformation | Platform Development">
+  <meta name="description" content="OneX/ is a digital transformation agency. We create value for brands and the people that believe in them. We create value for the human experience.">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.onexi.co/">
+  <meta property="og:title" content="OneX/ - Digital Transformation | Platform Development">
+  <meta property="og:description" content="OneX/ is a digital transformation agency. We create value for brands and the people that believe in them. We create value for the human experience.">
+  <meta property="og:image" content="">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.onexi.co/">
+  <meta property="twitter:title" content="OneX/ - Digital Transformation | Platform Development">
+  <meta property="twitter:description" content="OneX/ is a digital transformation agency. We create value for brands and the people that believe in them. We create value for the human experience.">
+  <meta property="twitter:image" content="">
+
+  <meta name="keywords"  content="" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Noto+Sans" rel="stylesheet">
+
+  <!-- Primary Meta Tags -->
+
+ 	
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="js/jquery.onepage-scroll.js"></script>
+  <script type="text/javascript" src="js/jquery.validate.pack.js"></script>
+
+  <link href='css/onepage-scroll.css' rel='stylesheet' type='text/css'>
+  <link href='css/linearicons.css' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      background: #E2E4E7;
+      padding: 0;
+      text-align: center;
+      font-family: 'open sans';
+      position: relative;
+      margin: 0;
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .wrapper {
+    	height: 100% !important;
+    	height: 100%;
+    	margin: 0 auto; 
+    	overflow: hidden;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+    
+    
+  
+    
+   
+	</style>
+	<script>
+    //disable links
+
+function disableLink(e) {
+    // cancels the event
+    e.preventDefault();
+
+    return false;
+} 
+    $(window).load(function() {
+      $(".loader").delay(2000).fadeOut("slow");
+      $("#overlayer").delay(2000).fadeOut("slow");
+    })
+	  $(document).ready(function(){
+      $(".main").onepage_scroll({
+        sectionContainer: "section",
+        responsiveFallback: false,
+        loop: false
+      });
+      $('.movedown').click(function() {
+         $(".main").moveDown();
+      });
+      
+    /*  $(".onepage-pagination li a").click(function(){
+          $(this).parent().parent().find('li').removeClass('active')
+          $(this).parent().addClass('active')
+      })*/
+      $( '.contact_button').click(function(){
+          $( '.form_contact' ).css('opacity', 1);
+          $( '.form_contact' ).addClass('.orm_contact_z-index')
+       })
+
+      $(".contact_button").on('click', function (e)    
+      {
+       e.preventDefault();
+        $(".modal").addClass('modal--state-open');
+        $('modal:first *:input[type!=hidden]:first').focus();
+      });                      
+           
+        //close the modal window
+        $("#close-btn").on('click', function()
+        {
+          $(".modal").removeClass('modal--state-open');
+        });
+
+       
+      $('.tabs')
+      .click(function() {
+
+          if ($(this).hasClass( "active_tabs" ) ) {
+            $( this ).parent().find('.tabs').removeClass('unhover_tabs').removeClass('active_tabs');
+          } else {
+            $( this ).parent().find('.tabs').addClass('unhover_tabs');
+            $( this ).removeClass('unhover_tabs');
+            $( this ).parent().find('.tabs').removeClass('active_tabs');
+            $( this ).addClass('active_tabs');
+          }
+      })
+
+
+
+ 
+      var textarea = document.querySelector('.form_container textarea');
+
+      textarea.addEventListener('keydown', autosize);
+                   
+      function autosize(){
+        var el = this;
+        setTimeout(function(){
+          el.style.cssText = 'height:auto; padding:0';
+          // for box-sizing other than "content-box" use:
+          // el.style.cssText = '-moz-box-sizing:content-box';
+          el.style.cssText = 'height:' + el.scrollHeight + 'px';
+        },0);
+      }
+
+
+      /* ajax function for forms */
+function ajaxContact(form) {
+  
+  var $ = jQuery;
+  
+  var Data = $(form).serialize(),
+  note = $(form).prev('.note');
+  
+  $.ajax({
+      type: "POST",
+      url: "send.php",
+      data: Data,
+      success: function(response) {
+                          
+        $(form).animate({opacity: 0},'fast');                               
+                                               
+        
+          if (response = 'success') {                          
+  
+          note.html('Your message sent to us!').slideDown('fast');                        
+                                          
+          } else { 
+
+                  note.html('Something going wrong...').slideDown('fast');
+          
+          }
+                
+               
+                
+        setTimeout(function() {                                         
+          note.html('').slideUp('fast');
+          $(form).find(".form_send").unbind('click', disableLink);    
+          $(form).find("input[type=text], textarea").val('');
+          $(form).animate({opacity: 100},'fast');                                              
+          },3000);
+                                  
+      },
+        error: function() {                     
+                        
+          $(form).animate({opacity: 0},'fast');
+
+          note.html('Something going wrong...').slideDown('fast');
+          
+          setTimeout(function() {
+                  
+                  note.html('').slideUp('fast');
+                  $(form).find(".form_send").unbind('click', disableLink);   
+                  $(form).find("input[type=text], textarea").val('');
+                  $(form).animate({opacity: 100},'fast');                                              
+                  },3000);
+                          
+      }
+  });
+
+  return false;
+
+}
+
+/* validate contacts forms */
+jQuery(".form_send").on('click',function(){
+
+
+jQuery(this).closest("form").validate({
+    rules: {
+            message: "required",
+            email: "required email",
+            FirstName: "required",
+            LastName: "required"
+     },  
+     messages: {
+    
+         email: {
+             required: "We need your email address to contact you",
+             email: "Your email address must be in the format of name@domain.com"
+         }
+ }
+}); 
+
+var valid = jQuery(this).closest("form").valid(); 
+
+if (valid === true) {
+jQuery(this).bind('click', disableLink);
+ajaxContact(jQuery(this).closest("form"));      
+}
+
+return false;
+});
+
+      
+
+     /* function phone_number_mask() {
+        var myMask = "(___) ___-__-__";
+        var myCaja = document.getElementById("phone");
+        var myText = "";
+        var myNumbers = [];
+        var myOutPut = ""
+        var theLastPos = 1;
+        myText = myCaja.value;
+        //get numbers
+        for (var i = 0; i < myText.length; i++) {
+          if (!isNaN(myText.charAt(i)) && myText.charAt(i) != " ") {
+            myNumbers.push(myText.charAt(i));
+          }
+        }
+        //write over mask
+        for (var j = 0; j < myMask.length; j++) {
+          if (myMask.charAt(j) == "_") { //replace "_" by a number 
+            if (myNumbers.length == 0)
+              myOutPut = myOutPut + myMask.charAt(j);
+            else {
+              myOutPut = myOutPut + myNumbers.shift();
+              theLastPos = j + 1; //set caret position
+            }
+          } else {
+            myOutPut = myOutPut + myMask.charAt(j);
+          }
+        }
+        document.getElementById("phone").value = myOutPut;
+        document.getElementById("phone").setSelectionRange(theLastPos, theLastPos);
+      }
+
+      document.getElementById("phone").onkeypress = validate_int;
+      document.getElementById("phone").onkeyup = phone_number_mask;
+*/
+      
+
+		});
+		
+	</script>
+</head>
+<body>
+  <div id="overlayer"></div>
+  <span class="loader">
+    <span class="loader-inner"></span>
+  </span>
+  <a href="#" class="contact_button">Reach Out <span class="linearicons linearicons-arrow-right"></span></a>
+  <div class="copy">&copy; 2019 <span>ONE ELEVEN GROUP, LLC<br>
+All Rights Reserved</span></div>
+  <div class="modal">
+  <div class="form_contact">
+    <div class="login-modal__close" >
+      <i class="linearicons linearicons-cross" id="close-btn"></i>
+    </div>
+    <div class="form_container">
+      <div class="page_container">
+        <div class="inner_container">
+          <div class="form_title">Reach Out</div>
+          <div class="form_sub_title">We would like to hear what's going on in your world.</div>
+          <div class="note"></div>
+          <form method="post" class="contactform">
+            <div class="form_elements">
+              <label ><input placeholder="First name" type="text" name="FirstName" /></label>
+              <label ><input placeholder="Last name" type="text" name="LastName"></label>
+              <label ><input type="text"   placeholder="Phone" name="phone" /></label>
+              <label ><input placeholder="Email address" type="email" name="email"></label>
+
+              <textarea placeholder="Message"  name="message"></textarea>
+            </div>
+            
+
+            <a href="#" class="btn form_send">SEND</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="header">
+      <h1><a href="#" title="oneEleven"><img src="images/Icon_white.svg" alt="oneEleven" width="70" class="white" /><img src="images/Icon_black.svg" alt="oneEleven" width="70" class="black" /></a></h1>
+  </div>
+  <div class="wrapper">
+	  <div class="main">
+	    
+      <section class="page1">
+        <div class="page_container">
+            <div class="inner_container">
+              <h2>We shift culture<br>
+              through digital innovation.</h2>
+            </div>
+            <a class="movedown" href="#"><span class="linearicons linearicons-arrow-down-circle"></span></a>
+  	    </div>
+       </section>
+	    
+	    <section class="page2">
+	      <div class="page_container">
+            <div class="inner_container">
+              <h4>OneX/ is a digital transformation agency.</h4>
+
+              <h3 class="h3_title">
+                <span>We create value for brands and the</span>
+                <span>people that believe in them. </span>
+              </h3>
+
+              <h3 class="h3_title">
+                <span>We create value for the human</span>
+                <span>experience.</span>
+              </h3>
+            </div>
+           <a class="movedown" href="#"><span class="linearicons linearicons-arrow-down-circle"></span></a>
+	      </div>
+      </section>
+	    
+	    <section class="page3">
+	      <div class="page_container">
+            <div class="inner_container align_left">
+              <ul class="accordion">
+                <li class="tabs">
+                  <div class="social-links twitter-icon">
+                    <a href="#">Strategy</a>
+                  </div>
+                  <div class="paragraph">
+                    <p>Through a holistic approach, we analyze all areas and dimensions of our client’s business in order to design their digital strategy and transformation plan, allowing them to gain a competitive advantage and excel their digital disruption.</p>
+                  </div>
+                </li>
+                <li class="tabs">
+                  <div class="social-links facebook-icon">
+                    <a href="#">Design</a>
+                  </div>
+                  <div class="paragraph">
+                    <p>We study the way our client’s consumers think, work, and live. Through user experience design, we turn these insights into actionable and measurable product experiences that influence our client’s consumer. </p>
+                  </div>
+                </li>
+                <li class="tabs">
+                  <div class="social-links linkedin-icon">
+                     <a href="#">Ecommerce</a>
+                  </div>
+                  <div class="paragraph">
+                    <p>For our client’s consumers, Ecommerce is a personalized experience that evokes a continuous level of trust. With this in mind, we develop an end-to-end Ecommerce solution which is an extension of our client’s identity. </p>
+                  </div>
+                </li>
+                <li class="tabs">
+                  <div class="social-links insta-icon">
+                    <a href="#">Platforms</a>
+                  </div>
+                  <div class="paragraph">
+                    <p>We are specialists in the interplay between people and products. We collaborate with our clients to develop innovative and agile platforms. </p>
+                  </div>
+                </li>
+                <li class="tabs">
+                  <div class="social-links youtube-icon">
+                    <a href="#">Insights</a>
+                  </div>
+                  <div class="paragraph">
+                    <p>Data is the heartbeat of any modern business. Past performances and present decisions have a massive impact on the path forward. We help our clients shift forward in the right direction by analyzing their digital ecosystem through the power of data.</p>
+                  </div>
+                </li>
+                
+              </ul>
+            </div>
+  	    </div>
+      </section>
+    </div>
+     
+  </div>
+
+  
+
+</body>
+</html>
